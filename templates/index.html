@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+  <head>
+    <title>FakenewsResearch</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="FakenewsResearch" />
+    <meta property="og:image" content="{{ url_for('static', filename='img/logo.png')}}" />
+    <meta property="og:description" content="Browse thousands of scientific publications related to disinformation, misinformation and information disorders." />
+    <meta property="og:site_name" content="FakenewsResearch" />
+
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='index.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" />
+
+    <!-- SEARCHBAR -->
+    <link href="{{ url_for('static', filename='searchbar.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='global.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='navbar.css')}}" rel="stylesheet" />
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='bts4.min.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='font-awesome.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- D3 -->
+    <script src="{{ url_for('static', filename='d3.v4.js')}}"></script>
+    <script src="{{ url_for('static', filename='d3.v4.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='d3.v6.min.js')}}"></script>
+
+    <!-- Plotly -->
+    <script src="{{ url_for('static', filename='plotly-latest.min.js')}}"></script>
+
+
+    <script src="{{ url_for('static', filename='jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery.3-5-1.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery-ui.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery-ui.min.js')}}"></script>
+    <link href="{{ url_for('static', filename='jquery-ui.css')}}" rel="stylesheet" />
+    <script src="{{ url_for('static', filename='popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js')}}"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=6159f6171b3f740019aa84e8&product=inline-share-buttons' async='async'></script>
+  </head>
+  <body>
+    <script>
+      var home_json = {{ home_json|tojson }};
+    </script>
+
+
+<div class="row"><div class="col-xs-12 col-md-12">{% include 'navbar.html' %}</div></div>
+<div class="row" id="firstrow">
+
+  <div class="col-md-2 col-1-5">
+
+
+    {% include 'vert-navbar.html' %}
+  </div>
+
+  <div class="col-xs-12 col-md-9">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-0 col-md-1">
+        </div>
+
+        <div class="col-xs-12 col-md-10">
+
+          <!-- <div class="jumbotron text-center" id="jumbo"> -->
+          <!-- </div> -->
+
+
+          <!-- Badges -->
+          <div class="row indrow" id="badge-box">
+            <div class="col-xs-3 col-md-4 indexcard">
+              <div class="row card-up"><h3>40832 PAPERS</h3></div>
+              <div class="row card-down">
+                <p class="badge-text">Search among thousands of works about the disinformation problem</p>
+              </div>
+            </div>
+
+            <div class="col-xs-3 col-md-4 indexcard">
+              <div class="row card-up"><h3>1518348 REFERENCES</h3></div>
+              <div class="row card-down">
+                <p class="badge-text">Don't stop to the most popular papers: find the hidden gems!</p>
+              </div>
+            </div>
+
+            <div class="col-xs-3 col-md-4 indexcard">
+              <div class="row card-up"><h3>ALWAYS UPDATED</h3></div>
+              <div class="row card-down">
+                <p class="badge-text">We update FakenewsResearch each two weeks. Don't miss the latest out!</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Badges for vertical -->
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="card-up"><h3>40832 PAPERS</h3></div>
+                <div class="card-down">
+                  <p class="badge-text">Search among thousands of works about the disinformation problem</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card-up"><h3>1518348 REFERENCES</h3></div>
+                <div class="card-down">
+                  <p class="badge-text">Everybody knows the most important papers: find the hidden gems!</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card-up"><h3>ALWAYS UPDATED</h3></div>
+                <div class="card-down">
+                  <p class="badge-text">We update Fakenewsacademy each two weeks. Don't miss the latest out!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+          <hr>
+
+          <!-- Searchbar -->
+          <div class="row indrow-search">
+            <div class="col-xs-12 col-md-12" id='search-box'>
+              {% include 'searchbar.html' %}
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row indrow-share">
+            <div class="col-xs-12 col-md-12">
+                <div class="sharethis-inline-share-buttons"></div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="col-xs-0 col-md-1">&nbsp;</div>
+      </div>
+
+
+    </div> <!-- end container -->
+  </div><!-- end col -->
+  <div class="col-xs-0 col-md-1"></div>
+</div><!-- end row -->
+
+
+
+
+</body>
+
+<script type="text/javascript" src="{{ url_for('static', filename='search.js') }}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'd3.layout.cloud.js')}}" defer></script>
+</html>

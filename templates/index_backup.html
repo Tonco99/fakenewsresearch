@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+  <head>
+    <title>FakeNewsAcademy</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='index.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" />
+
+    <!-- SEARCHBAR -->
+    <link href="{{ url_for('static', filename='searchbar.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='global.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='navbar.css')}}" rel="stylesheet" />
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='bts4.min.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='font-awesome.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- D3 -->
+    <script src="{{ url_for('static', filename='d3.v4.js')}}"></script>
+    <script src="{{ url_for('static', filename='d3.v4.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='d3.v6.min.js')}}"></script>
+
+    <!-- Plotly -->
+    <script src="{{ url_for('static', filename='plotly-latest.min.js')}}"></script>
+
+
+    <script src="{{ url_for('static', filename='jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery.3-5-1.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js')}}"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
+  </head>
+  <body>
+    <script>
+      var home_json = {{ home_json|tojson }};
+    </script>
+
+
+<div class="row"><div class="col-xs-12 col-md-12">{% include 'navbar.html' %}</div></div>
+<div class="row" id="firstrow">
+
+  <div class="col-md-2 col-1-5">
+    {% include 'vert-navbar.html' %}
+  </div>
+
+  <div class="col-xs-12 col-md-9">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-0 col-md-1">&nbsp;</div>
+        <div class="col-xs-12 col-md-10">
+
+          <!-- <div class="jumbotron text-center" id="jumbo"> -->
+          <!-- </div> -->
+
+
+          <!-- Badges -->
+          <div class="row indrow" id="badge-box">
+            <div class="col-xs-3 col-md-4 indexcard">
+              <div class="row card-up"><h3>45363 PAPERS</h3></div>
+              <div class="row card-down">
+                <p class="badge-text">Search among thousands of works about the disinformation problem</p>
+              </div>
+            </div>
+
+            <div class="col-xs-3 col-md-4 indexcard">
+              <div class="row card-up"><h3>1476074 REFERENCES</h3></div>
+              <div class="row card-down">
+                <p class="badge-text">Don't stop to the most popular papers: find the hidden gems!</p>
+              </div>
+            </div>
+
+            <div class="col-xs-3 col-md-4 indexcard">
+              <div class="row card-up"><h3>ALWAYS UPDATED</h3></div>
+              <div class="row card-down">
+                <p class="badge-text">We update FakenewsResearch each two weeks. Don't miss the latest out!</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Badges for vertical -->
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="card-up"><h3>45363 PAPERS</h3></div>
+                <div class="card-down">
+                  <p class="badge-text">Search among thousands of works about the disinformation problem</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card-up"><h3>1476074 REFERENCES</h3></div>
+                <div class="card-down">
+                  <p class="badge-text">Everybody knows the most important papers: find the hidden gems!</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card-up"><h3>ALWAYS UPDATED</h3></div>
+                <div class="card-down">
+                  <p class="badge-text">We update Fakenewsacademy each two weeks. Don't miss the latest out!</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Searchbar -->
+          <div class="row indrow-search">
+            <div class="col-xs-12 col-md-12" id='search-box'>
+              {% include 'searchbar.html' %}
+            </div>
+          </div>
+
+
+          <div class="row"><hr class="hr-text" data-content="Papers by year"></div>
+
+          <!-- Bar charts -->
+          <div class="row indrow">
+            <h3>An emerging problem</h3>
+            <p class="bar-text regular-text">The problem of disinformation online has become a big concern in the last years,
+              after fake news would allegedly affected elections and modified the relationship between democracies and citizens.
+              The scientific community promptly responded with a massive production of studies, analyses, experiments and tests. The journey has just started.
+            </p>
+              {% include 'barchart.html' %}
+          </div>
+
+
+
+          <div class="row"><hr class="hr-text" data-content="Topics and keywords"></div>
+
+          <!-- Wordcloud -->
+          <div class="row indrow">
+            <h3>Topics and subfields</h3>
+            <p class="cloud-text regular-text">What do we talk about when we talk about fake news? <br>
+              Here it is a wordcloud with all the most important keywords, taken from the titles and abstracts of the papers. Click on a word to access all the articles about it.
+            </p>
+            {% include 'cloud.html' %}
+          </div>
+
+
+          <div class="row"><hr class="hr-text" data-content="Countries and politics"></div>
+
+          <!-- Choropleth map -->
+          <div class="row indrow">
+            <h3>A global emergence</h3>
+            <p class="map-text regular-text">Disinformation online is a worldwide concern, as disinformation, misinformation, bots and political astroturfing deteriorate the regular
+              functioning of democracies. This is a worldmap that represents the most studied countries. <br>
+              US is currently the country that most scientists have focused on, but there is a lot to tell about other countries.
+            </p>
+            <div id='map-box' class = 'col-xs-12 col-md-12'>
+              {% include 'worldmap.html' %}
+            </div>
+          </div>
+
+          <div class="row indrow">
+            <br>
+          </div>
+
+          <div class="row indrow">
+            <br>
+          </div>
+
+          <div class="row indrow">
+            <br>
+          </div>
+
+
+        </div>
+
+
+        <div class="col-xs-0 col-md-1">&nbsp;</div>
+      </div>
+
+    </div> <!-- end container -->
+  </div><!-- end col -->
+  <div class="col-xs-0 col-md-1"></div>
+</div><!-- end row -->
+</body>
+
+<script type="text/javascript" src="{{ url_for('static', filename='search.js') }}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'barchart1.js')}}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'barchart2.js')}}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'wordcloud.js')}}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'worldmap.js')}}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'd3.layout.cloud.js')}}" defer></script>
+</html>

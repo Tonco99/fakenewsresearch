@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark col-xs-12 col-md-12 mynav">
+    <a class="navbar-brand" href="{{ url_for('index')}}"><img src="{{ url_for('static', filename = 'img/logo.png')}}" width = "100px"></img></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item d-flex align-items-center">
+            <a class="nav-link active" href="{{ url_for('project')}}"><span class='navtext'></span>PROJECT | US</span></a>
+        </li>
+        <li class="divider"></li>
+        <li class="nav-item">
+            <a class="nav-link active" href="https://arcs.di.unito.it/"><img src="{{ url_for('static', filename = 'img/arcs_2.png')}}" width = "70px"></img></a>
+        </li>
+        <li class="divider"></li>
+        <li class="nav-item">
+            <a class="nav-item nav-link active" href="http://www.di.unito.it/do/home.pl"><img src="{{ url_for('static', filename = 'img/unito_2.png')}}" width = "100px"></img></a>
+        </li>
+      </ul>
+    </div>
+  </nav>

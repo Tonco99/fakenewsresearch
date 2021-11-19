@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+  <head>
+    <title>FakenewsResearch</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:image" content="{{ url_for('static', filename='img/logo/logo.png')}}" />
+    <meta property="og:description" content="Browse thousands of scientific publications related to disinformation, misinformation and information disorders." />
+    <meta property="og:title" content="{{title}}" />
+    <meta property="og:site_name" content="FakenewsResearch" />
+
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='paper.css')}}">
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='global.css')}}">
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='navbar.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=60940e8a9c605400117b1724&product=sticky-share-buttons" async="async"></script>
+
+  </head>
+  <body>
+    <script>
+      var paper = {{ paper|tojson }};
+      var most_similar = paper['most_similar'];
+      var same_authors = paper['same_authors'];
+      paper = paper['paper'];
+      var tags = paper['tags'];
+
+    </script>
+
+    {% include 'navbar.html' %}
+
+    <div class="row">
+
+      <div class="col-1-5">
+        {% include 'vert-navbar.html' %}
+      </div>
+
+      <div class="col-xs-12 col-md-9">
+
+    <div class="container-fluid">
+
+
+
+      <div class="row">
+        <div class="col-xs-0 col-md-1">
+          <div class="sharethis-sticky-share-buttons"></div>
+        </div>
+        <div class="col-xs-12 col-md-10">
+
+                <div class="row indrow">
+                  <div id="paper_title">{{ paper.paper.title }}</div>
+                  <div id="paper_authors"></div>
+                  <div id="paper_metrics">
+                    <span class="metric"> <strong>Year:</strong>&nbsp;{{ paper.paper.year}}</span>
+                    <span class="metric"> <strong>Citations:</strong>&nbsp;{{ paper.paper.cit}} </span>
+                  </div>
+
+                  <div id="links"></div>
+                  <div class="d-flex justify-content-center" id="paper_abstract">{{ paper.paper.abstract }}</div>
+                  <div class="empty"><br></div>
+                  <div class="col-xs-12 col-md-12"><div id="tags"></div></div>
+                  </div>
+
+              <div class="row indrow">
+                <div class="col-xs-12 col-md-12">
+                  <div class="row"><div id="same_author_sectit">From same authors:</div></div>
+                  <div class="row"><div id="same_authors"></div></div>
+                </div>
+              </div>
+
+              <div class="row shortrow">
+                <div class="col-xs-12 col-md-12">
+                  <div class="row"><div id="similar_papers_sectit">Similar papers:</div></div>
+                  <div class="row"><div id="similar_papers"></div></div>
+                </div>
+              </div>
+
+              <div class="row indrow">
+                <br>
+              </div>
+      </div> <!-- end col 10 -->
+      <div class="col-xs-0 col-md-1"></div>
+    </div> <!-- end container -->
+  </div><!-- end col -->
+  <div class="col-1-5"></div>
+  </div><!-- end row -->
+
+
+
+    <script> // Authors ## FIX HERE: JUST PRINT
+
+    $(document).ready(function () {
+      var x = '';
+
+      if(paper.n_authors > 1){
+        for(i = 0; i < paper.author.length; i++){
+
+          if(paper.author[i] != ''){
+            x = x.concat('<span class="plaintext">&nbsp;<form class="plaintext" action="/search" method="post"><input class="plaintext" type="submit" name="author", value="' + paper.author[i] + '" ></form></span>');
+          }else{
+            x = x.concat('<span class="plaintext"><form class="plaintext" action="/search" method="post"><input class="plaintext" type="submit" name="author", value="' + paper.author[i]+ '" ></form></span>');
+          }
+
+          if(i < paper.author.length - 1){
+            x = x.concat('<span class="plaintext">,&nbsp;</span>');
+          }
+        } // for
+      }else{
+        x = x.concat('<span class="plaintext">&nbsp;<form class="plaintext" action="/search" method="post"><input class="plaintext" type="submit" name="author", value="' + paper.author + '" ></form></span>');
+        // if(paper.author[1] != ''){
+        //   x = x.concat('<span class="plaintext"><form class="plaintext" action="/search" method="post"><input class="plaintext" type="submit" name="author", value="(' + paper.author[1] + ')"></form></span>');
+        // }
+      }
+
+      document.getElementById('paper_authors').innerHTML = x;
+    });
+
+
+     //end function
+
+      // var span = document.createElement('span');
+      //
+      // span.className += ' wordcloudword';
+      // span.addEventListener("click", function(){
+      //
+      //   var form = document.createElement('FORM');
+      //   form.name = 'tmpform';
+      //   form.method="POST";
+      //   form.action="/search";
+      //
+      //   var my_tb=document.createElement('INPUT');
+      //   my_tb.type="TEXT";
+      //   my_tb.name="title";
+      //   my_tb.value=word;
+      //   form.appendChild(my_tb);
+      //
+      //   var my_tb=document.createElement('INPUT');
+      //   my_tb.type="TEXT";
+      //   my_tb.name="author";
+      //   my_tb.value='';
+      //   form.appendChild(my_tb);
+      //
+      //   var my_tb=document.createElement('INPUT');
+      //   my_tb.type="TEXT";
+      //   my_tb.name="sort_by";
+      //   my_tb.value='citations';
+      //   form.appendChild(my_tb);
+      //
+      //   document.body.appendChild(form);
+      //   form.submit();
+
+
+    </script>
+
+    <!-- PAGE TITLE -->
+    <script>
+    document.title = paper.title;
+    </script>
+
+    <script> //DOI
+
+        $(document).ready(function () {
+          if(paper.DOI != ''){
+            var s = document.getElementById('paper_metrics').innerHTML;
+            s = s.concat('<span class="metric"> <strong>DOI:</strong>&nbsp;' + paper.DOI + ' </span>')
+                      document.getElementById('paper_metrics').innerHTML = s;
+          }
+    });
+
+    </script>
+
+    <script> //links
+
+        $(document).ready(function () {
+          var s = '<div class="col-xs-2 col-md-2">';
+          if(paper.links.length != 0){
+            s = s.concat('<span class="dropdown d-flex justify-content-end">');
+            s = s.concat('<button type="button" class="btn btn-primary dropdown-toggle paper_button" data-toggle="dropdown">View paper on:</button>');
+            s = s.concat('<div class="dropdown-menu">');
+
+            for(i = 0; i < paper.links.length; i++){
+              s = s.concat('<a class="paper_link dropdown-item" href="' + paper.links[i] +'" target="_blank">' + paper.domains[i] + '</a>')
+            }
+            s = s.concat('</div></span>');
+          }else{
+            s = s.concat('</div>');
+          }
+          document.getElementById('links').innerHTML = s;
+
+    });
+
+    </script>
+
+
+    <script> //tags
+
+        $(document).ready(function () {
+          var s = '';
+          jQuery.each(tags, function(){
+            s = s.concat('<span class="badge badge-primary badge-project"><form class="tagtext" action="/search" method="post"><input class="tagtext" type="submit" name="tag", value="' + this + '" ></form></span>');
+          });
+
+          document.getElementById('tags').innerHTML = s;
+    });
+
+    </script>
+
+
+
+    <script> //same authors
+        $(document).ready(function () {
+
+          var s = '<ul>';
+
+          if(same_authors.length > 0){
+            jQuery.each(same_authors, function() {
+              s = s.concat('<div class="row"><li class="same_author_li"> \n');
+              s = s.concat('<div class="same_author_title"><a href="/paper/' + this.paper_id + '">' + this.title + '</a></div>');
+              s = s.concat('<span class="same_author_author">' + this.author + ', ' + this.year + '</span>');
+              s = s.concat('</li></div>');
+            });
+          }else{
+
+            var s = s.concat('<li class="same_author_li">No papers found.</li>');
+          }
+
+
+          s = s.concat('</ul>');
+
+          document.getElementById('same_authors').innerHTML = s;
+        });
+
+    </script>
+
+    <script> //similar papers
+
+        $(document).ready(function () {
+
+          var s = '<ul>';
+
+          if(most_similar.length > 0){
+            jQuery.each(most_similar, function() {
+              s = s.concat('<div class="row"><li class="similar_papers_li"> \n');
+              s = s.concat('<div class="similar_papers_title"><a href="/paper/' + this.paper_id + '">' + this.title + '</a></div>');
+              s = s.concat('<span class="similar_papers_author">' + this.author + ', ' + this.year + '</span>');
+
+              s = s.concat('</li></div>');
+            });
+          }else{
+
+            var s = s.concat('<li class="similar_papers_li">No papers found.</li>');
+          }
+
+          s = s.concat('</ul>');
+
+          document.getElementById('similar_papers').innerHTML = s;
+        });
+
+    </script>
+
+
+
+
+  <script type="text/javascript" src="{{ url_for('static', filename = 'search.js')}}" defer></script>
+</body>
+</html>

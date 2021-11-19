@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+  <head>
+    <title>FakenewsResearch</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='methods.css')}}">
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='global.css')}}">
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='navbar.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+
+    <div class="row">
+
+      <div class="col-1-5">
+        {% include 'vert-navbar.html' %}
+      </div>
+
+      <div class="col-xs-12 col-md-9">
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-xs-0 col-md-1"></div>
+        <div class="col-xs-12 col-md-10">
+
+          <div class="row indrow">
+            <h3>What is FakenewsResearch</h3>
+            <p class="bar-text regular-text">
+
+              Disinformation is rampant on social media, and researchers from all around the world are studying this problem from a broad variety of different perspecives.
+              Especially after 2016, the scientific production about all kinds of information disorders has exploded. We now are flooded by thousands of new publications per year.
+              Among all these contributions, it's sometime hard to keep track of the most valuable ones, or the latest out.
+            <br><br>
+              We wanted an aggregator of scientific publications that user can seek for retrieving the most influential works, for discovering new releases, a place where
+              to find a comprehensive collection of papers about the topic.
+            <br><br>
+              FakenewsResearch is an <span class="imp">automated collection of scientific papers</span>, based on the data retrieved from
+              <a href="https://www.microsoft.com/en-us/research/project/microsoft-academic-graph/" target = "_blank">the Microsoft Academic Graph</a> APIs.
+
+              Also, FakenewsResearch doesn't allow you to only search for title - there's plenty of search engines online.
+              Wee wanted to guide the search of a paper: we highlighted different types of influence, we suggested similar papers, we let you search by tag or by institute or by author.
+              We plan to automatically retrieve subfields, and tag papers by subfield, putting a bit of order in the vast and confuse production on this subject.
+            </p>
+          </div>
+
+          <div class="row indrow">
+            <h3>How does FakenewsResearch work?</h3>
+            <p class="bar-text regular-text">We downloaded any paper that contains one of these keywords in the title:
+            </p>
+
+              <ul>
+                <li>fake news</li>
+                <li>misinformation</li>
+                <li>disinformation</li>
+                <li>hoax</li>
+                <li>false news</li>
+                <li>social bot</li>
+                <li>fact check%</li>
+                <li>fact-check%</li>
+                <li>infodemic</li>
+                <li>information disorder</li>
+              </ul>
+
+              <p>
+              We are aware that we may have downloaded many unrelevant papers, and perhaps missed many relevant contributions, but as long as we can provide a useful service,
+              we don't think a few misplaced papers are a too big issue. <br> <br>
+              Each paper comes with a list of papers it references. We download them all, as they may be relevant papers without one of the keywords in the title. We flag
+              all the papers containing one of the keyword in the title or in the abstract as relevant, and we flag the remaining papers as "referenced papers". When you
+              query about a word, you search only the relevant papers, unless you check the box <span class="imp">search also in referenced papers</span>.
+              We then built a citation network, and we computed several centrality measures like the betweenness centrality, the pagerank, and the
+              hubs and authorities centrality. We believe these measure to give different ideas of influence of a paper: some papers receive many authorable citations,
+              and we can consider them as fundamental inspirations for important works; some other papers cite many authorable works, hence they are valuable (also) for
+              their rich refecences section; some papers are in between od two groups of papers, like bridges in the middle of two disciplines. We highlighted the hidden gems
+               in this dataset, among the query results.<br> <br>
+              Last, we computed a text similarity score for each possible pair of papers, using <a href="https://dl.acm.org/doi/10.5555/3044805.3045025" target="_blank">Doc2Vec<a>. This allowed us to save, for each paper, the 10 most similar to check.
+              We believe that even a basic recommendation system like this one may help researchers to find interesting contributions to read, moving from one paper to another by following suggestions. <br>
+              We update the dataset and repeat all the analyses twice per month, to keep up with the enormous scientific production of these years.<br><br>
+            </p>
+            <p class="bar-text regular-text">Would you do something different? Mail us!</p>
+          </div>
+          <div class="row indrow">
+            <h3>Why I do see that many mistakes?</h3>
+            <p class="bar-text regular-text">
+              You may experience some bug here and there. Maybe some papers have no abstract, or the references list doesn't match with the one you can find elsewhere, or
+              the author list may be partial, with wrong affiliations. We are not responsible for the data itself, but we also believe that people at Microsoft are doing a terrific job, and we should just thank them.
+              All this application is possible because of them sharing their hard work with the community, and we are extremely grateful. If you see something wrong, please
+              contact us, and we will try to fix it based on your alerts. <br> <br>
+              The same applies, of course, to our analyses and algorithms. FakenewsResearch is updated <span class="imp">automatically</span>! It means we don't do any supervision,
+              we only check if everything works after the last update. If something gets messed up, please let us know. <br> <br>
+            </p>
+          </div>
+
+          <div class="row indrow">
+            <h3>About us</h3>
+            <p class="bar-text regular-text">
+              A paper of ours, that cites this website as our work, is currently under review. We will not disclose anonimity of the authors until the paper will get accepted (fingers crossed!).
+            </p>
+
+            <p class="bar-text regular-text">Contact us here: <br> <a href="mailto:alfonso.semeraro@unito.it"><img src="{{ url_for('static', filename = 'img/mail.png')}}" width="50px" alt="alfonso.semeraro@unito.it"></img></a></p>
+          </div>
+
+          <div class="row indrow">
+            <h3>Latest updates</h3>
+          </div> <div class="row">
+
+            <p class="bar-text regular-text">
+              <ul>
+                <li>07-02-2021 Fixed bugs</li>
+                <li>21-11-2020 added basics...</li>
+              </ul>
+
+            </p>
+          </div>
+
+
+         <div class="row indrow">
+            <!-- separator_modifier -->
+				<div class="last_update">Last update: 06 May 2021.</div>
+				<!-- separator_modifier -->
+        </div>
+        <div class="row license">
+            Data from Microsoft Academic Graph which is made available under the ODC Attribution License.
+        </div>
+
+        <div class="row">
+         <p> </p>
+        </div>
+
+
+      </div> <!-- end col 10 -->
+      <div class="col-xs-0 col-md-1"></div>
+    </div> <!-- end container -->
+  </div><!-- end col -->
+  <div class="col-1-5"></div>
+  </div><!-- end row -->
+
+
+</body>
+</html>
