@@ -1,0 +1,34 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto+Slab&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Roboto+Slab&display=swap');
+:root {
+  --dark: #49577B;
+  --accent: #0099CC;
+  --fontcolor: #030303;
+
+  --othercolor: #262d33;
+
+  --font2: 'Roboto Slab', sans-serif;
+  --font1: 'Roboto Condensed', sans-serif;
+
+  --size-big: 16px;
+  --size-regular: 12px;
+}
+
+html{
+
+}
+
+body{
+  /* background-image: url('../static/img/bg2.jpg'); */
+  background-image: linear-gradient(#A2A2A2, #E2E2E2, #EEE);
+  /* background-color: #A2A2A2 !important; */
+  background-attachment: fixed;
+  /* background-repeat: no-repeat; */
+
+  background-position: 0% 0%;
+  background-size: 100vw 100vh;
+
+  font-family: 'Roboto Slab', sans-serif !important;
+  color: var(--dark) !important;
+  font-size: 16px !important;
+}
